@@ -61,7 +61,7 @@ const GasForm = () => {
           </div>
         </div>
       </div>
-      <div className="w-full md:w-2/3 h-1/2 md:h-screen flex justify-center items-center">
+      <div className="w-full md:w-3/3 h-1/2 md:h-screen flex justify-center items-center">
         <img
           src="https://img.freepik.com/free-photo/3d-rendering-gas-cylinder_23-2149290449.jpg?size=626&ext=jpg&ga=GA1.1.149556823.1683788678&semt=ais"
           alt="challenge"
