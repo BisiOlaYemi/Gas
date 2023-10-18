@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image';
 import React, { useState } from 'react';
 
 const GasForm = () => {
@@ -62,10 +63,11 @@ const GasForm = () => {
         </div>
       </div>
       <div className="w-full md:w-3/3 h-1/2 md:h-screen flex justify-center items-center">
-        <img
-          src="https://img.freepik.com/free-photo/3d-rendering-gas-cylinder_23-2149290449.jpg?size=626&ext=jpg&ga=GA1.1.149556823.1683788678&semt=ais"
-          alt="challenge"
-          className="h-1/2 md:h-full"
+        <Image
+          src='/assets/hf.png'
+          width={1200}
+          height={800}
+          className='h-1/2 md:h-full'
         />
       </div>
     </div>
