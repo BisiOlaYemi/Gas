@@ -33,7 +33,7 @@ const GasForm = () => {
       <div className="w-full md:w-1/2 h-1/2 md:h-screen flex justify-center items-center bg-gray-800">
         <div className="w-4/5 md:w-3/5 lg:w-2/2 p-8">
           <h1 className="text-xl font-bold mb-4"> Gas Refill Notification Alert</h1>
-          <select className='text-black py-2 mb-2 rounded w-40' value={gasSize} onChange={handleSizeChange}>
+          <select className='text-black py-2 mb-2 rounded w-full' value={gasSize} onChange={handleSizeChange}>
             <option value="1kg">1kg</option>
             <option value="5kg">5kg</option>
             <option value="16kg">16kg</option>
