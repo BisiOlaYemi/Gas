@@ -26,7 +26,7 @@ const GasForm = () => {
     });
 
     const data = await response.json();
-    // Handle the data and email notification here
+    // the data and email notification here
   };
 
   return (
