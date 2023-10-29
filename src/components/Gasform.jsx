@@ -1,6 +1,12 @@
 'use client'
 import Image from 'next/image';
 import React, { useState } from 'react';
+import { createClient } from '@supabase/supabase-js';
+
+
+const supabaseUrl = 'https://epyjvrtstdfrakwvfauw.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVweWp2cnRzdGRmcmFrd3ZmYXV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTg1ODYxMjYsImV4cCI6MjAxNDE2MjEyNn0.HSLxmjR4jzZIzg6fJ-PYTnVDnqUESyDOd7ffv_oK89E';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const GasForm = () => {
   const [dateRefilled, setDateRefilled] = useState('');
