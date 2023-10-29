@@ -26,13 +26,16 @@ const GasForm = () => {
   };
 
   const handleSubmit = async () => {
-    const response = await fetch('/api/gas/checkExpiration', {
-      method: 'POST',
-      body: JSON.stringify({ dateRefilled }),
-    });
+    const { data, error } = await supabase.from('gas').insert([
+      { gasSize, refillDate: dateRefilled, userEmail },
+    ]);
 
-    const data = await response.json();
-    // the data and email notification here
+    if (error) {
+      console.error('Error inserting data: ', error);
+    } else {
+      console.log('Data inserted successfully: ', data);
+      // Handle the data and email notification here
+    }
   };
 
   return (
