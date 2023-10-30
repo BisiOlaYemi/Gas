@@ -72,7 +72,7 @@ const GasForm = () => {
         <div className="w-4/5 md:w-3/5 lg:w-2/2 p-8">
           <h1 className="text-xl font-bold mb-4"> Gas Refill Notification Alert</h1>
           <form onSubmit={handleSubmit}>
-            <select className='text-black py-2 mb-2 rounded w-full' value={gasSize} onChange={handleGasSizeChange }>
+            <select className='text-black py-2 mb-2 rounded w-full' value={gasSize} onChange={handleGasSizeChange}>
               <option value="1kg">1kg</option>
               <option value="5kg">5kg</option>
               <option value="16kg">16kg</option>
@@ -82,24 +82,25 @@ const GasForm = () => {
               className="text-black w-full p-2 mb-4 rounded"
               type="date"
               value={dateRefilled}
-            onChange={handleDateChange}
+              onChange={handleDateChange}
             />
-            <input 
+            <input
               className='text-black w-full p-2 mb-4 rounded'
               type="email"
-              placeholder='Email' 
-              value={userEmail} 
+              placeholder='Email'
+              value={userEmail}
               onChange={handleEmailChange}
             />
-           <div className='text-center justify-center'>
-            <button
-              className="rounded-lg px-2 py-2 bg-white text-black w-full md:w-40"
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
-           </div>
-         </form>
+            <div className='text-center justify-center'>
+              <button
+                className="rounded-lg px-2 py-2 bg-white text-black w-full md:w-40"
+                type="submit"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+
         </div>
       </div>
       <div className="w-full md:w-3/3 h-1/2 md:h-screen flex justify-center items-center">
