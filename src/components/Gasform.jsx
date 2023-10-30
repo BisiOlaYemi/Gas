@@ -25,23 +25,39 @@ const GasForm = () => {
     setUserEmail(event.target.value);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  
     let expirationDate;
-    if (gasSize === '5kg') {
+    if (gasSize === '12.5kg') {
       const refillDateObj = new Date(dateRefilled);
       expirationDate = new Date(refillDateObj.setDate(refillDateObj.getDate() + 60));
+  
+      try {
+        const { data, error } = await supabase.from('gas').insert([
+          { gasSize, refillDate: dateRefilled, userEmail, expirationDate },
+        ]);
+  
+        if (error) {
+          console.error('Error inserting data: ', error);
+        } else {
+          console.log('Data inserted successfully: ', data);
+         
+          const { error: emailError } = await supabase.auth.api.sendMagicLinkEmail(
+            userEmail,
+            { action: 'Gas Refill Notification', gasSize, expirationDate }
+          );
+          if (emailError) {
+            console.error('Error sending email: ', emailError);
+          } else {
+            console.log('Email notification sent successfully');
+          }
+        }
+      } catch (error) {
+        console.error('Error inserting data: ', error.message);
+      }
     }
-    const { data, error } = await supabase.from('gas').insert([
-      { gasSize, refillDate: dateRefilled, userEmail, expirationDate },
-    ]);
-
-    if (error) {
-      console.error('Error inserting data: ', error);
-    } else {
-      console.log('Data inserted successfully: ', data);
-      // Handle the data and email notification here
-    }
-  };
+  };  
 
   useEffect(() => {
     if (gasSize === '5kg' || gasSize === '12.5kg') {
