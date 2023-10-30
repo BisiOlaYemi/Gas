@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
 
@@ -9,9 +9,13 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const GasForm = () => {
+  const [gasSize, setGasSize] = useState('');
   const [dateRefilled, setDateRefilled] = useState('');
-  const [gasSize, setGasSize ] = useState ('');
-  const [userEmail, setUserEmail] = useState ('');
+  const [userEmail, setUserEmail] = useState('');
+
+  const handleGasSizeChange  = (event) => {
+    setGasSize(event.target.value);
+  };
 
   const handleDateChange = (event) => {
     setDateRefilled(event.target.value);
@@ -21,13 +25,14 @@ const GasForm = () => {
     setUserEmail(event.target.value);
   };
 
-  const handleSizeChange = (event) => {
-    setGasSize(event.target.value);
-  };
-
   const handleSubmit = async () => {
+    let expirationDate;
+    if (gasSize === '5kg') {
+      const refillDateObj = new Date(dateRefilled);
+      expirationDate = new Date(refillDateObj.setDate(refillDateObj.getDate() + 60));
+    }
     const { data, error } = await supabase.from('gas').insert([
-      { gasSize, refillDate: dateRefilled, userEmail },
+      { gasSize, refillDate: dateRefilled, userEmail, expirationDate },
     ]);
 
     if (error) {
@@ -38,12 +43,35 @@ const GasForm = () => {
     }
   };
 
+  useEffect(() => {
+    if (gasSize === '5kg' || gasSize === '12.5kg') {
+      const checkExpiration = async () => {
+        const { data, error } = await supabase
+          .from('gas')
+          .select('expirationDate')
+          .eq('gasSize', gasSize);
+        if (error) {
+          console.error('Error fetching data: ', error);
+        } else if (data && data.length > 0) {
+          const expirationDate = new Date(data[0].expirationDate);
+          const currentDate = new Date();
+          const timeDiff = expirationDate.getTime() - currentDate.getTime();
+          const daysDiff = timeDiff / (1000 * 3600 * 24);
+          if ((gasSize === '5kg' && daysDiff <= 14) || (gasSize === '12.5kg' && daysDiff <= 56)) {
+            alert(`Your ${gasSize} gas is reaching its threshold! Please consider a refill.`);
+          }
+        }
+      };
+      checkExpiration();
+    }
+  }, [gasSize]);
+
   return (
     <div className="flex flex-col md:flex-row w-full h-screen bg-gray-300">
       <div className="w-full md:w-1/2 h-1/2 md:h-screen flex justify-center items-center bg-gray-800">
         <div className="w-4/5 md:w-3/5 lg:w-2/2 p-8">
           <h1 className="text-xl font-bold mb-4"> Gas Refill Notification Alert</h1>
-          <select className='text-black py-2 mb-2 rounded w-full' value={gasSize} onChange={handleSizeChange}>
+          <select className='text-black py-2 mb-2 rounded w-full' value={gasSize} onChange={handleGasSizeChange }>
             <option value="1kg">1kg</option>
             <option value="5kg">5kg</option>
             <option value="16kg">16kg</option>
