@@ -91,25 +91,40 @@ const GasForm = () => {
         <div className="w-4/5 md:w-3/5 lg:w-2/2 p-8">
           <h1 className="text-xl font-bold mb-4"> Gas Refill Notification Alert</h1>
           <form onSubmit={handleSubmit}>
-            <select className='text-black py-2 mb-2 rounded w-full' value={gasSize} onChange={handleGasSizeChange}>
+           <div className="mb-2">
+           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="gasSize">
+              Gas Size:
+            </label>
+             <select className='text-black py-2 mb-2 rounded w-full' value={gasSize} onChange={handleGasSizeChange}>
               <option value="1kg">1kg</option>
               <option value="5kg">5kg</option>
               <option value="16kg">16kg</option>
               <option value="12.5kg">12.5kg</option>
-            </select>
+             </select>
+            </div>
+            <div className="mb-2">
+           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="date">
+              Date:
+            </label>
             <input
               className="text-black w-full p-2 mb-4 rounded"
               type="date"
               value={dateRefilled}
               onChange={handleDateChange}
             />
+            </div>
+            <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+              Email Address:
+            </label>
             <input
-              className='text-black w-full p-2 mb-4 rounded'
+              className='text-black w-full p-2 mb-2 rounded'
               type="email"
               placeholder='Email'
               value={userEmail}
               onChange={handleEmailChange}
             />
+            </div>
             <div className='text-center justify-center'>
               <button
                 className="rounded-lg px-2 py-2 bg-white text-black w-full md:w-40"
