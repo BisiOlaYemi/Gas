@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import postmark from 'postmark';
+import * as postmark from 'postmark';
 
 
 const supabaseUrl = 'https://epyjvrtstdfrakwvfauw.supabase.co';
