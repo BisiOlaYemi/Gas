@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js';
+import postmark from 'postmark';
 
 
 const supabaseUrl = 'https://epyjvrtstdfrakwvfauw.supabase.co';
@@ -41,24 +42,25 @@ const GasForm = () => {
         if (error) {
           console.error('Error inserting data: ', error);
         } else {
-          console.log('Data inserted successfully: ', data);
-          window.alert('Refill Date is successfully added!');
-         
-          const { error: emailError } = await supabase.auth.api.sendMagicLinkEmail(
-            userEmail,
-            { action: 'Gas Refill Notification', gasSize, expirationDate }
-          );
-          if (emailError) {
-            console.error('Error sending email: ', emailError);
-          } else {
-            console.log('Email notification sent successfully');
-          }
+          console.log('Gas refill data inserted successfully: ', data);
+          window.alert('Gas refill date is noted tracking...')
+          
+          const client = new postmark.ServerClient("fec86a33-f3e8-4d0a-ad9e-82839b48611f");
+          const sendEmailResult = await client.sendEmail({
+            From: 'official@careerhaven.ca',
+            To: userEmail,
+            Subject: 'Gas Refill Notification',
+            TextBody: `Your ${gasSize} gas is reaching its threshold! Please consider a refill.`,
+          });
+  
+          console.log('Email notification sent successfully:', sendEmailResult);
         }
       } catch (error) {
         console.error('Error inserting data: ', error.message);
       }
     }
-  };  
+  };
+    
 
   useEffect(() => {
     if (gasSize === '5kg' || gasSize === '12.5kg') {

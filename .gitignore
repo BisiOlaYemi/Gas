@@ -38,3 +38,6 @@ next-env.d.ts
 .supabase
 *.url
 *.apikey
+
+#postmark
+.postmark
