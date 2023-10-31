@@ -107,18 +107,18 @@ const GasForm = () => {
               Date:
             </label>
             <input
-              className="text-black w-full p-2 mb-4 rounded"
+              className="text-black w-full p-2 mb-2 rounded"
               type="date"
               value={dateRefilled}
               onChange={handleDateChange}
             />
             </div>
-            <div className="mb-4">
+            <div className="mb-2">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
               Email Address:
             </label>
             <input
-              className='text-black w-full p-2 mb-2 rounded'
+              className='text-black w-full p-2 mb-3 rounded'
               type="email"
               placeholder='Email'
               value={userEmail}
