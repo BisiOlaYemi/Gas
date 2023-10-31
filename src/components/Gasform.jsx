@@ -60,7 +60,6 @@ const GasForm = () => {
       }
     }
   };
-    
 
   useEffect(() => {
     if (gasSize === '5kg' || gasSize === '12.5kg') {
