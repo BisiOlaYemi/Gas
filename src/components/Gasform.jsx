@@ -42,6 +42,7 @@ const GasForm = () => {
           console.error('Error inserting data: ', error);
         } else {
           console.log('Data inserted successfully: ', data);
+          window.alert('Refill Date is successfully added!');
          
           const { error: emailError } = await supabase.auth.api.sendMagicLinkEmail(
             userEmail,
